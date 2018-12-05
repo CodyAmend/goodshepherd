@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{%	block title	%} About us {% endblock %}
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-4">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            {% include 'messages.html' %}
+                            <h4>About us</h4>
+                            <h3>Hope and a Helping Hand.</h3>
+                            <p>Good Shepherd Food Pantry is a non-profit organization that provides food, toiletries,
+                                and other
+                                items to those in need. We opened our doors in 2011 to serve those in the Omaha metro
+                                area who
+                                struggle with food insecurity. Since opening our doors, we've served over 750
+                                individuals and
+                                families. We strive to always treat our clients with dignity and respect. Our mission is
+                                to serve
+                                the needs of the community long into the future.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+{% endblock %}

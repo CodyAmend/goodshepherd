@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Manage Client Visits {% endblock %}
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-1">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            <div class="row">
+                                <h3 style="padding-left: 15Px">Manage Client Visits</h3>
+                            </div>
+                            {% include 'messages.html' %}
+                        <a href="{% url 'clients:visit_create' %}" class="row"><span
+                                        class="btn btn-warning"><i class="fa fa-cart-plus"></i> Add Visit</span></a>
+                            <div>
+                                <table class="table table-bordered table-hover" style="background-color:white">
+                                    <thead>
+                                    <tr class="bg-info">
+                                        <th>Client Name</th>
+                                        <th>Date of Visit</th>
+                                        <th>Items picked up</th>
+                                        <th>Items</th>
+                                        <th colspan="2">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for visit in visits %}
+                                        <tr>
+                                            <td>{{ visit.client.first_name|add:" " |add:visit.client.last_name }}</td>
+                                            <td>{{ visit.created_date }}</td>
+                                            <td align="center">{% if visit.picked_up == True %}
+                                                <i class="fa fa-check-square fa-2x" style="color: #395D33"></i>
+                                                        {%else %}
+                                                        <i class="fa fa-square fa-2x" style="color: red"></i>
+                                            {% endif %} </td>
+                                            <td>
+                                                {% for visititem in visititems %}
+                                                    {% if visit.id == visititem.visit_id %}
+                                                <p>{{ visititem.item }} #: {{ visititem.quantity }}</p>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </td>
+                                            <td align="center"><a href="{% url 'clients:visit_edit' pk=visit.pk %}"><i
+                                                    class="fa fa-btn fa-edit fa-2x"></i></a>
+                                            </td>
+                                            <td align="center"><a href="{% url 'clients:visit_delete' pk=visit.pk %}"
+                                                                  onclick="return confirm('Are you sure you want to delete?')"
+                                            ><i class="fa fa-btn fa-trash fa-2x"></i></a>
+                                            <!-- <td align="center"><i class="fa fa-btn fa-file-text fa-2x"></i></td> -->
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

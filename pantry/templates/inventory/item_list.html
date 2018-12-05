@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Manage Inventory {% endblock %}
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-1">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            <div class="row">
+                                <h3 style="padding-left: 15Px">Manage Inventory</h3>
+                            </div>
+                            {% include 'messages.html' %}
+                            <a href="{% url 'pantry:item_new' %}" class="row"><span
+                                    class="btn btn-primary"><i class="fa fa-plus"></i> Add Donation</span></a>
+
+                            <p>Select category:
+                                <select name="category" onchange="location = this.value;">
+                                    <option {% if not category %} selected{% endif %}
+                                                                  value="{% url 'pantry:item_list' %}">
+                                        All
+                                    </option>
+                                    {% for c in categories %}
+                                        <option {% if category.slug == c.slug %} selected {% endif %}
+                                                                                 value="{{ c.get_absolute_url }} ">
+                                            {{ c.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </p>
+
+                            <p></p>
+                            <table class="table table-bordered table-hover" style="background-color:white">
+                                <thead>
+                                <tr class="bg-info">
+                                    <th>Item</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Available</th>
+                                    <th>Date Donated</th>
+                                    <th colspan="2">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in items %}
+                                    <tr>
+                                        <td>{{ item.item_name }}</td>
+                                        <td>{{ item.category }}</td>
+                                        <td>{{ item.description }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td align="center">{% if item.available == True %}
+                                            <i class="fa fa-check-square fa-2x" style="color: #395D33"></i>
+                                        {% else %}
+                                            <i class="fa fa-square fa-2x"></i>
+                                        {% endif %} </td>
+                                        <td>{{ item.created_date }}</td>
+                                        <td align="center"><a href="{% url 'pantry:item_edit' pk=item.pk %}">
+                                            <i class="fa fa-btn fa-edit fa-2x"></i></a>
+                                        </td>
+                                        <td align="center"><a href="{% url 'pantry:item_delete' pk=item.pk %}"
+                                                              onclick="return confirm('Are you sure you want to delete?')">
+                                            <i class="fa fa-btn fa-trash fa-2x"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

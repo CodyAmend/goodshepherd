@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Customer registration {% endblock %}
+
+{% block content %}
+    <!--<head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    </head>-->
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-4">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            <form method="POST" class="customer-form">{% csrf_token %}
+                                {% include 'messages.html' %}
+                                <div class="row">
+                                    <h3>Registration Form</h3>
+                                </div>
+
+                                <table border="0">
+                                    <tr>
+                                        {{ form.as_table }}
+                                    </tr>
+                                </table>
+
+                                <table>
+                                    <tr>
+                                        <input type="submit" value="Register" class="btn btn-warning btn-lg"/>
+                                    </tr>
+                                </table>
+
+                            </form>
+                            <!--<script>
+                              $(function(){
+                                  function hideInputs() {
+                                      $("#id_employer").hide();
+                                  }
+
+                                  $("#id_is_employed").change(function(){
+                                      if ($(this).prop('checked') == 'checked') {
+                                           $("#id_employer").show();
+                                      } else {
+                                           $("#id_employer").hide();
+                                      }
+                                  });
+
+                                  hideInputs();
+                              });
+                              </script>-->
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

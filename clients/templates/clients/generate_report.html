@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}Search{% endblock %}
+
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-4">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <!-- change image if needed-->
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <!-- change col if you need more space-->
+                    <div class="col-md-8">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            <h3>Report</h3>
+                            <p></p>
+                            {% include 'messages.html' %}
+                            <form method="GET" action=" {% url 'clients:generate_report' %}">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        From date:<input type="text" name="fromDate" value="{{ request.GET.fromDate }}">
+                                        <p style="font-size:12px; color:#A0A0A0">YYYY-MM-DD</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        To date:<input type="text" name="toDate" value="{{ request.GET.toDate }}">
+                                        <p style="font-size:12px; color:#A0A0A0">YYYY-MM-DD</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p></p>
+                                        <button type="submit" class="btn btn-warning"><i
+                                                class="fa fa-database"></i> Get Data
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p></p>
+                                     <!-- <input type="hidden" name="format" value="csv">-->
+                                        <input type="submit" class="btn btn-warning" name="format" value="Export to csv">
+                                    </div>
+                                </div>
+                            </form>
+                            <p></p>
+                            <table class="table table-bordered table-hover" style="background-color:white">
+                                <thead>
+                                <tr class="bg-info">
+                                    <th>Food item</th>
+                                    <th>Total no. of items in pantry</th>
+                                    <th>No. of items taken</th>
+                                    <th>Remaining no. of items in pantry</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for visit in visits %}
+                                    <tr>
+                                        <td>{{ visit.item.item_name }}</td>
+                                        <td>{{ visit.item.quantity|add:visit.quantity }}</td>
+                                        <td>{{ visit.quantity }}</td>
+                                        <td>{{ visit.item.quantity }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

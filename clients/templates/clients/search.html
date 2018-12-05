@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}Search{% endblock %}
+
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-1">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <!-- change image if needed-->
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <!-- change col if you need more space-->
+                    <div class="col-md-12">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            <h3>Client search</h3>
+                            <p></p>
+                            {% include 'messages.html' %}
+                            <form method="get">
+                                {{ filter.form.as_p }}
+                                <button type="submit" class="btn btn-warning"><i
+                                                class="fa fa-search"></i> Search</button>
+                                 <input type="submit" class="btn btn-warning" name="format" value="Export to csv">
+                            </form>
+                        <p></p>
+                             <table class="table table-bordered">
+                             <thead>
+                             <tr>
+                                <th>First Name</th>
+                                <th>Last name</th>
+                                <th>Gender</th>
+                                 <th>Birth Date</th>
+                                <th>Address</th>
+                                 <th>City</th>
+                                <th>Zipcode</th>
+                                <th>Phone number</th>
+                                 <th>Employed</th>
+                                <th>Employer</th>
+                                 <th>Family Size</th>
+                                <th>Items Requested</th>
+                                 </tr>
+                                     </thead>
+                                 <tbody>
+                                {% for customer in filter.qs %}
+                                    <td>{{ customer.first_name }}</td>
+                                    <td>{{ customer.last_name }}</td>
+                                    <td>{{ customer.gender }}</td>
+                                    <td>{{ customer.birth_date }}</td>
+                                    <td>{{ customer.address }}</td>
+                                    <td>{{ customer.city }}</td>
+                                    <td>{{ customer.zipcode }}</td>
+                                    <td>{{ customer.phone }}</td>
+                                    <td>{{ customer.is_employed }}</td>
+                                    <td>{{ customer.employer }}</td>
+                                    <td>{{ customer.family_size }}</td>
+                                    <td>{{ customer.items_needed }}</td>
+                                    <tr>
+                                    <td colspan="12"></td>
+                                    </tr>
+                                {% endfor %}
+                                 </tbody>
+                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

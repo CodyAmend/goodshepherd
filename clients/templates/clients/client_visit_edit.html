@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Edit Client Visit {% endblock %}
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-4">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            <form method="POST" class="client-visit-form">{% csrf_token %}
+                                {% include 'messages.html' %}
+                                <div class="row">
+                                    <h3>Edit Client Visit</h3>
+                                </div>
+                                <p></p>
+                                <table border="0">
+                                    <tr>
+                                        {{ form|crispy }}
+                                    </tr>
+                                </table>
+                                <h4>Items:</h4>
+                                {{ formsets.management_form }}
+                                {% for form in formsets %}
+                                    <div class="row form-row spacer">
+                                        <div class="col-md-3">
+                                            <label>{{ form.item }}</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                {{ form.quantity }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <table>
+                                    <tr>
+                                        <input type="submit" value="Update" class="btn btn-warning btn-lg"/>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

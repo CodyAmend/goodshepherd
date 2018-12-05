@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="main_slider text-center">
+            <div class="col-md-12">
+                <div class="main_slider_content wow zoomIn" data-wow-duration="1s">
+                    {% include 'messages.html' %}
+                    {% if user.is_authenticated %}
+                        <h1>Welcome to Good Shepherd Food Pantry System</h1>
+                        <p>Hope and a Helping Hand.</p>
+                        <p>Our mission is to be more than a pantry by providing clients with resources to be food secure
+                            and self-sufficient in a hope-filled environment</p>
+                    {% else %}
+                        <h1>Good Shepherd Food Pantry</h1>
+                        <p>Hope and a Helping Hand.</p>
+                        <p><a href="{% url 'login' %}" class="btn btn-warning btn-lg ">Login!</a>
+                            <a href="{% url 'clients:client_form' %}" class="btn btn-warning btn-lg">Registration</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

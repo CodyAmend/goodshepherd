@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-4">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            {% include 'messages.html' %}
+                            <h1>Log-in</h1>
+                            <div class="login-form">
+                                <form method="post" action="{% url 'login' %}">
+                                    {{ form|crispy }}
+                                    {% csrf_token %}
+                                    <input type="submit" value="Login" class="btn btn-warning btn-lg"/>
+                                    <input type="hidden" name="next" value="{{ next }}"/>
+                                </form>
+                                <p style="font-size:80%;"><a href="{% url "password_reset" %}">Forgotten your  password?</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

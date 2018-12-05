@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{%	block title	%} Sign up for admin/volunteer {% endblock %}
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-4">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            {% include 'messages.html' %}
+                            <h3>Sign up - {{ user_type }}</h3>
+                            <form method="post" novalidate>
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ next }}">
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-warning">Sign up</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

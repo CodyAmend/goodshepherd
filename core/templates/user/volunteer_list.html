@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Manage Volunteers {% endblock %}
+
+{% block content %}
+    <!--<head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    </head>-->
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-1">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            <div class="row">
+                                <h3 style="padding-left: 15Px">Manage Volunteers</h3>
+                            </div>
+                            {% include 'messages.html' %}
+                            <a href="{% url 'core:volunteer_add' %}" class="row"><span
+                                    class="btn btn-warning"><i class="fa fa-user-plus fa-2x"></i></span></a>
+                            <div>
+                                <table class="table table-bordered table-hover" style="background-color:white">
+                                    <thead>
+                                    <tr class="bg-info">
+                                        <th>Name</th>
+                                        <th>Gender</th>
+                                        <th>Birth date</th>
+                                        <th>Address</th>
+                                        <th>City</th>
+                                        <th>Zipcode</th>
+                                        <th>Phone number</th>
+                                        <th colspan="2">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for volunteer in volunteers %}
+                                        <tr>
+                                            <td>
+                                                {{ volunteer.user.first_name|add:" " |add:volunteer.user.last_name }}</td>
+                                            <td>{{ volunteer.gender }}</td>
+                                            <td>{{ volunteer.birth_date }}</td>
+                                            <td>{{ volunteer.address }}</td>
+                                            <td>{{ volunteer.city }}</td>
+                                            <td>{{ volunteer.zipcode }}</td>
+                                            <td>{{ volunteer.phone }}</td>
+                                            <td align="center"><a
+                                                    href="{% url 'core:volunteer_edit' pk=volunteer.pk %}"><i
+                                                    class="fa fa-btn fa-edit fa-2x"></i></a>
+                                            </td>
+                                            <td align="center"><a
+                                                    href="{% url 'core:volunteer_delete' pk=volunteer.pk %}"
+                                                    onclick="return confirm('Are you sure you want to delete?')"
+                                            ><i class="fa fa-btn fa-trash fa-2x"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

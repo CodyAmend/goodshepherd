@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{%	block title	%} Sign up selection {% endblock %}
+
+{% block content %}
+    <section id="abouts" class="abouts">
+        <div class="container">
+            <div class="row">
+                <div class="abouts_content">
+                    <div class="col-md-4">
+                        <div class="single_abouts_text text-center wow slideInLeft" data-wow-duration="1s">
+                            <img src="{% static "images/polaroid.png" %}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single_features_text wow slideInRight" data-wow-duration="1s">
+                            {% include 'messages.html' %}
+                            <h3>Add user</h3>
+                            <p class="lead">Select the type of account you want to create</p>
+                            <a href="{% url 'core:administrator_signup' %}" class="btn btn-warning btn-lg" role="button">
+                                Administrator Account</a>
+                            <a href="{% url 'core:volunteer_signup' %}" class="btn btn-warning btn-lg" role="button">Volunteer Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
